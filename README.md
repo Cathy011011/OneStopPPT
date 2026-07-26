@@ -1,203 +1,146 @@
 # OneStopPPT
 
-一个面向中文研究型汇报场景的 PowerPoint 自动化项目。当前仓库聚焦于一条明确工作流：基于本地私有材料进行 PPT 生成、修订与 live 审查，但公开仓库不再包含任何业务敏感素材。
+一个面向中文研究型汇报的 PPT 自动化仓库。  
+仓库只保留脚本、skills 和 `scientific-illustrator` 能力；业务材料请只放本地，不要上传 git。
 
-## 项目目标
+## 你能拿它做什么
 
-- 保留可复用的风格规则与智能体入口
-- 保留稳定的生成脚本
-- 保留 `scientific-illustrator` 这条 PowerPoint live 审查与修订链路
-- 不在仓库中保存任何业务 PPT、原始文档、截图或参考图片
+- 根据本地访谈/研究材料生成 PPT
+- 套用研究报告型风格继续改稿
+- 用 `scientific-illustrator` 做 live 检查、导出预览、局部修页
 
-## 当前仓库包含什么
+## 先看哪里
 
-### 1. 生成脚本
-
-- `build-interview-report/build_benchmark_five_refs_safe.mjs`
-  - 当前保留的稳定版生成脚本
-- `build-interview-report/package.json`
-  - 脚本目录的基础 Node 配置
-
-### 2. 技能与规则
-
-- `.trae/skills/avatr-report-ppt`
-  - 当前项目的智能体入口
-- `.trae/skills/project-report-ppt-style`
-  - 参考报告风格规则、页型模板与分析基线
-- `.trae/skills/powerpoint-automation`
-  - PowerPoint 自动化相关通用能力
-
-### 3. PowerPoint live 能力
-
-- `scientific-illustrator/`
-  - 保留该目录是为了继续使用 live PowerPoint 编辑、结构检查、导出预览和审查流程
-
-## 目录结构
-
-```text
-OneStopPPT/
-├─ .trae/
-│  └─ skills/
-│     ├─ avatr-report-ppt/
-│     ├─ powerpoint-automation/
-│     └─ project-report-ppt-style/
-├─ build-interview-report/
-│  ├─ build_benchmark_five_refs_safe.mjs
-│  └─ package.json
-└─ scientific-illustrator/
-```
-
-## 工作原则
-
-- PPT 可见内容必须忠于已批准的访谈材料
-- 不补造数字、结论、用户原话和竞品判断
-- 尽量使用 PowerPoint 原生可编辑对象，而不是大面积图片平铺
-- 当智能体入口与 canonical 风格规则冲突时，以 `.trae/skills/project-report-ppt-style` 为准
+- `/.trae/skills/avatr-report-ppt`
+- `/.trae/skills/project-report-ppt-style`
+- `/build-interview-report/build_benchmark_five_refs_safe.mjs`
+- `/scientific-illustrator/README.md`
 
 ## 快速开始
-
-### 1. 克隆仓库
 
 ```bash
 git clone https://github.com/Cathy011011/OneStopPPT.git
 cd OneStopPPT
-```
-
-### 2. 准备环境
-
-建议环境：
-
-- Windows
-- Microsoft PowerPoint
-- Node.js 18+
-- PowerShell 5.1 或 PowerShell 7+
-
-如果要运行本地生成脚本，可先安装脚本目录依赖：
-
-```bash
 cd build-interview-report
 npm install
 ```
 
-### 3. 查看关键资产
-
-优先阅读这些文件：
-
-1. `.trae/skills/avatr-report-ppt/SKILL.md`
-2. `.trae/skills/project-report-ppt-style/SKILL.md`
-3. `build-interview-report/build_benchmark_five_refs_safe.mjs`
-4. `scientific-illustrator/README.md`
-
-## 推荐工作流
-
-### 路线 A：继续修改已有 PPT
-
-适用于当前项目的日常迭代。
-
-1. 在本地私有目录准备业务材料
-2. 以 `.trae/skills/avatr-report-ppt` 作为任务入口
-3. 如需套用研究报告风格，参考 `.trae/skills/project-report-ppt-style`
-4. 在本地环境修改或重生成目标 PPT
-5. 如需 live 审查，用 `scientific-illustrator` 打开并复核
-
-### 路线 B：重新抽取参考风格基线
-
-当本地参考 PPT 更新后执行：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File ".\.trae\skills\project-report-ppt-style\scripts\analyze_ppt_style.ps1"
-```
-
-输出会更新 `project-report-ppt-style/references` 下的风格分析基线。注意：参考 PPT 本体不应提交到公开仓库。
-
-### 路线 C：继续使用稳定版脚本生成
-
-当前保留脚本：
+生成脚本默认输出到本地目录：
 
 ```bash
-node build-interview-report/build_benchmark_five_refs_safe.mjs
+node build_benchmark_five_refs_safe.mjs
 ```
 
-说明：
+指定输出路径：
 
-- 脚本会围绕当前访谈材料和参考图生成最新版本的访谈分析 PPT
-- 该脚本是目前仓库中保留的稳定生成入口
-- 业务材料路径请在本地私有环境中自行维护，不要提交到远端
+```bash
+$env:PPT_OUT="D:\temp\report.pptx"
+node build_benchmark_five_refs_safe.mjs
+```
 
-## 为什么保留 scientific-illustrator
+## 目录
 
-这个目录不是历史残留，而是项目里仍然有价值的一环。它主要用于：
+```text
+OneStopPPT/
+├─ .trae/skills/
+│  ├─ avatr-report-ppt/
+│  ├─ project-report-ppt-style/
+│  └─ powerpoint-automation/
+├─ build-interview-report/
+└─ scientific-illustrator/
+```
 
-- 打开 PowerPoint live 实例
-- 做结构检查
-- 做可编辑性审查
-- 导出预览图
-- 在 PowerPoint 内进行局部修订
+## 使用原则
 
-如果后续完全不再需要 live 审查链路，可以再考虑拆掉；当前仓库默认保留。
+- 业务 PPT、docx、图片只保存在本地
+- 不补造数字、结论、用户原话
+- 优先 PowerPoint 原生可编辑对象
+- 风格冲突时，以 `project-report-ppt-style` 为准
 
-## 技能说明
+## 直接可用的提示词
 
-### avatr-report-ppt
+### 1. 根据访谈材料生成初版 PPT
 
-当前项目的主入口 skill，用于：
+```text
+使用 avatr-report-ppt 和 project-report-ppt-style。
+我会在本地提供访谈纪要和参考 PPT，请基于本地材料生成一版研究报告型 PPT。
+要求：
+1. 只使用本地私有材料，不要引用仓库里不存在的文件
+2. 标题直接写结论
+3. 不补造数据和用户原话
+4. 优先使用 PowerPoint 原生可编辑对象
+5. 生成后给出逐页结构摘要
+```
 
-- 基于访谈材料继续出新页或改现有页
-- 校验当前 PPT 是否仍忠于访谈材料
-- 串联 canonical 风格规则与现有生成脚本
-- 所有业务材料默认仅存在于本地私有目录
+### 2. 在现有 PPT 上继续精修
 
-### project-report-ppt-style
+```text
+使用 avatr-report-ppt。
+基于我本地现有 PPT 继续精修，不要推翻重做。
+重点检查：
+1. 标题是否直接表达结论
+2. 一页是否只服务一个重点
+3. 图表和表格是否比大段文字更承担信息主体
+4. 文案是否忠于原始材料
+5. 所有修改保持可编辑
+```
 
-用于沉淀和复用参考研究报告的风格系统，核心包括：
+### 3. 用 scientific-illustrator 做 live 审查
 
-- 字体与层级
-- 版式边界
-- 图表与表格习惯
-- 页型模板
-- 风格基线数据
+```text
+使用 scientific-illustrator 的 live PowerPoint 流程检查当前打开的 PPT。
+按下面顺序执行：
+1. status
+2. capabilities
+3. inspect
+4. 对关键页做 audit
+5. 导出预览图
 
-### powerpoint-automation
+重点看：
+- 对齐
+- 留白
+- 文字溢出
+- 箭头和边框净空
+- 是否仍是原生可编辑对象
+```
 
-用于通用 PPT 自动化能力补充，例如：
+### 4. 让它只改文案，不动版式骨架
 
-- PPTX 生成
-- 模板分析
-- 内容替换
-- 通用流程与检查参考
+```text
+只改文案，不大改版式结构。
+保留当前页面骨架、图表位置、信息层级和主视觉节奏。
+只做：
+1. 标题改成结论式
+2. 正文压缩
+3. 重复表达去重
+4. 语气统一
+```
 
-## 仓库整理策略
+### 5. 让它只做风格学习，不直接出 PPT
 
-当前仓库已经做过一次收敛，原则是：
+```text
+使用 project-report-ppt-style。
+先不要生成 PPT，先把参考稿的风格规则整理出来。
+输出内容只要：
+1. 字体和字号层级
+2. 常见页型
+3. 图表/表格表达规则
+4. 标题写法
+5. 后续复用时必须遵守的约束
+```
 
-- 只保留一套 canonical skill 体系
-- 只保留脚本、规则、插件与公开可共享说明
-- 删除业务 PPT、访谈文档、参考图和其他敏感素材
-- 删除历史版本、草稿、重复 references 与中间预览
-
-如果后续继续整理，建议仍然遵守这个原则，避免仓库再次堆满临时文件。
-
-## 提交与更新建议
-
-日常更新建议流程：
+## 提交前
 
 ```bash
 git status
-git add README.md .gitignore
-git add .trae
-git add build-interview-report/build_benchmark_five_refs_safe.mjs
-git add scientific-illustrator
-git commit -m "update OneStopPPT project assets and documentation"
-git push
 ```
 
-## 注意事项
+确认这些材料没有被跟踪：
 
-- `build-interview-report/node_modules/` 已在 `.gitignore` 中忽略，不提交到仓库
-- PowerPoint live 相关能力依赖本机 Office/COM 环境
-- 业务 PPT、访谈纪要、参考截图等敏感文件只应保存在本地私有目录
-- 若敏感文件已经推送到远端，仅在新提交里删除并不能从 Git 历史中消失
+- 本地业务 PPT
+- 本地 docx
+- 本地参考图片
 
-## License
+## 一句话提醒
 
-当前仓库未单独声明新的顶层许可证。若需要开源发布，建议在确认素材与文档可公开后，再补充仓库级 `LICENSE`。
+这个仓库传的是能力，不是材料。
