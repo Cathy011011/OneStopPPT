@@ -72,12 +72,48 @@ OneStopPPT/
 - 优先 PowerPoint 原生可编辑对象
 - 风格冲突时，以 `project-report-ppt-style` 为准
 
+## 提示词放在哪用
+
+### 1. 放在 Agent 对话框里
+
+适用：
+
+- `avatr-report-ppt`
+- `project-report-ppt-style`
+- `scientific-illustrator`
+
+使用位置：
+
+- Trae / Codex / 支持 skills 的 Agent 聊天窗口
+
+不要放这里：
+
+- PowerPoint 里
+- `node` 命令行里
+- 普通 shell 终端里
+
+### 2. 放在终端里
+
+适用：
+
+- `node build_benchmark_five_refs_safe.mjs`
+- PowerShell 脚本
+- git 命令
+
+### 3. 怎么选
+
+- 要“生成初稿 / 改稿” -> 用 `avatr-report-ppt`
+- 要“先学参考稿风格” -> 用 `project-report-ppt-style`
+- 要“打开当前 PPT 做 live 检查/修页” -> 用 `scientific-illustrator`
+
 ## 直接可用的提示词
 
 ### 1. 根据访谈材料生成初版 PPT
 
 ```text
-使用 avatr-report-ppt 和 project-report-ppt-style。
+把下面这段贴到 Agent 对话框里使用。
+
+使用 avatr-report-ppt，并参考 project-report-ppt-style。
 我会在本地提供访谈纪要和参考 PPT，请基于本地材料生成一版研究报告型 PPT。
 要求：
 1. 只使用本地私有材料，不要引用仓库里不存在的文件
@@ -87,9 +123,17 @@ OneStopPPT/
 5. 生成后给出逐页结构摘要
 ```
 
+推荐场景：
+
+- 从 0 到 1 出第一版
+- 已有访谈纪要和参考 PPT
+- 需要“内容生成 + 风格约束”一起生效
+
 ### 2. 在现有 PPT 上继续精修
 
 ```text
+把下面这段贴到 Agent 对话框里使用。
+
 使用 avatr-report-ppt。
 基于我本地现有 PPT 继续精修，不要推翻重做。
 重点检查：
@@ -100,9 +144,16 @@ OneStopPPT/
 5. 所有修改保持可编辑
 ```
 
+推荐场景：
+
+- 已经有一版 PPT
+- 现在主要是修标题、修文案、修结构
+
 ### 3. 用 scientific-illustrator 做 live 审查
 
 ```text
+把下面这段贴到 Agent 对话框里使用。
+
 使用 scientific-illustrator 的 live PowerPoint 流程检查当前打开的 PPT。
 按下面顺序执行：
 1. status
@@ -119,9 +170,18 @@ OneStopPPT/
 - 是否仍是原生可编辑对象
 ```
 
+推荐场景：
+
+- PPT 已经打开
+- 需要检查溢出、对齐、可编辑性
+- 需要导出预览图
+
 ### 4. 让它只改文案，不动版式骨架
 
 ```text
+把下面这段贴到 Agent 对话框里使用。
+
+使用 avatr-report-ppt。
 只改文案，不大改版式结构。
 保留当前页面骨架、图表位置、信息层级和主视觉节奏。
 只做：
@@ -131,9 +191,16 @@ OneStopPPT/
 4. 语气统一
 ```
 
+推荐场景：
+
+- 页面结构已经定了
+- 只想收文案，不想重排版
+
 ### 5. 让它只做风格学习，不直接出 PPT
 
 ```text
+把下面这段贴到 Agent 对话框里使用。
+
 使用 project-report-ppt-style。
 先不要生成 PPT，先把参考稿的风格规则整理出来。
 输出内容只要：
@@ -143,6 +210,12 @@ OneStopPPT/
 4. 标题写法
 5. 后续复用时必须遵守的约束
 ```
+
+推荐场景：
+
+- 还没开始做 PPT
+- 先想把参考风格吃透
+- 后续准备多人复用同一套风格规则
 
 ## 提交前
 
