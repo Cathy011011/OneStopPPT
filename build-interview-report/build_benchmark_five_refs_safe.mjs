@@ -1,8 +1,9 @@
 import fs from "node:fs/promises";
+import path from "node:path";
 import { Presentation, PresentationFile } from "@oai/artifact-tool";
 
 const ROOT = "F:/Codex/PPT自动化/build-interview-report";
-const OUT = "F:/Codex/PPT自动化/访谈/会议笔录分析总结_优化版_访谈分析报告版.pptx";
+const OUT = process.env.PPT_OUT ?? `${ROOT}/local-output/interview-analysis-report.pptx`;
 const PREVIEW = `${ROOT}/benchmark-five-refs-preview`;
 const WIDTH = 1280;
 const HEIGHT = 720;
@@ -27,7 +28,7 @@ const C = {
   white: "#FFFFFF",
 };
 
-const SOURCE = "资料来源：会议笔录分析总结_优化版(1).docx，仅基于原文整理";
+const SOURCE = "资料来源：本地私有业务材料，仅基于原文整理";
 
 async function saveBlob(path, blob) {
   await fs.writeFile(path, new Uint8Array(await blob.arrayBuffer()));
@@ -212,7 +213,7 @@ async function main() {
     text(s, "cover-note", "本报告仅围绕访谈中呈现的用户画像、竞品认知、定位判断、卖点理解与生态建议展开整理。", { left: 92, top: 328, width: 620, height: 60 }, { fontSize: 14, color: C.gray, verticalAlignment: "top" });
     panel(s, "cover-meta", 792, 182, 338, 210, { header: "访谈信息" });
     dataTable(s, "cover-meta-table", 812, 218, [94, 224], ["字段", "内容"], [
-      ["输入", "会议笔录分析总结_优化版(1).docx"],
+      ["输入", "本地私有访谈材料"],
       ["输出", "访谈分析报告"],
       ["方法", "围绕访谈结论进行结构化整理"],
       ["范围", "用户画像、竞品、定位、卖点、生态"],
@@ -505,6 +506,7 @@ async function main() {
   }
 
   await fs.mkdir(PREVIEW, { recursive: true });
+  await fs.mkdir(path.dirname(OUT), { recursive: true });
   await fs.writeFile(`${ROOT}/benchmark-five-refs-inspect.ndjson`, (await presentation.inspect({ kind: "slide,textbox,shape", maxChars: 200000 })).ndjson, "utf8");
   const pptx = await PresentationFile.exportPptx(presentation);
   await pptx.save(OUT);

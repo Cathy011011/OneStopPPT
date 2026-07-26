@@ -22,11 +22,8 @@ description: Create or review the current interview-analysis PPT using the canon
 
 ## Current project assets
 
-- 原始访谈材料：`f:\Codex\PPT自动化\访谈\会议笔录分析总结_优化版(1).docx`
-- 参考 PPT：`f:\Codex\PPT自动化\访谈\项目报告.pptx`
-- 最新交付 PPT：`f:\Codex\PPT自动化\访谈\会议笔录分析总结_优化版_访谈分析报告版.pptx`
-- 参考图：`f:\Codex\PPT自动化\访谈\_codex_work_项目报告复刻\reference-contact-1.jpg` 到 `reference-contact-5.jpg`
 - 当前生成脚本：`f:\Codex\PPT自动化\build-interview-report\build_benchmark_five_refs_safe.mjs`
+- 业务材料：仅保存在本地私有目录，不进入公开仓库
 
 ## Use this skill for
 
@@ -34,6 +31,7 @@ description: Create or review the current interview-analysis PPT using the canon
 - 依据参考 PPT 的研究报告风格做内容整理
 - 检查当前最新 PPT 是否仍忠于访谈材料
 - 沿用现有脚本继续生成最新版本
+- 处理本地私有业务材料，不在公开仓库中保存素材本体
 
 ## Working rules
 

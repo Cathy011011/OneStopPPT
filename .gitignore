@@ -7,6 +7,8 @@ Thumbs.db
 
 build-interview-report/node_modules/
 build-interview-report/benchmark-five-refs-preview/
+访谈/
+scientific-illustrator/PPTDEMO/
 
 *.inspect.ndjson
 *.tmp

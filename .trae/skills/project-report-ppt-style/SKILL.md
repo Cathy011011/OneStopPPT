@@ -5,14 +5,14 @@ description: "Analyzes and recreates the visual, editorial, and data-storytellin
 
 # 项目报告 PPT 风格复写技能
 
-当用户要基于 `f:\Codex\PPT自动化\访谈\项目报告.pptx` 的风格继续写新 PPT、改已有 PPT、或先做风格学习再出页时，使用这个 skill。
+当用户要基于本地私有参考 PPT 的风格继续写新 PPT、改已有 PPT、或先做风格学习再出页时，使用这个 skill。
 
 ## 先读这些文件
 
 1. `references/project-report-style.md`
 2. `references/slide-patterns.md`
 3. `references/project-report-analysis.json`
-4. 如果参考 PPT 更新了，先运行 `scripts/analyze_ppt_style.ps1`
+4. 如果本地参考 PPT 更新了，先运行 `scripts/analyze_ppt_style.ps1`
 
 ## 这个 skill 要解决什么
 
@@ -80,6 +80,4 @@ description: "Analyzes and recreates the visual, editorial, and data-storytellin
 
 ## 当前项目保留资产
 
-- 参考 PPT：`f:\Codex\PPT自动化\访谈\项目报告.pptx`
-- 原始访谈材料：`f:\Codex\PPT自动化\访谈\会议笔录分析总结_优化版(1).docx`
-- 最新交付：`f:\Codex\PPT自动化\访谈\会议笔录分析总结_优化版_访谈分析报告版.pptx`
+- 参考 PPT、原始访谈材料和交付成品仅保存在本地私有目录，不进入公开仓库
