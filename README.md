@@ -25,6 +25,21 @@ cd build-interview-report
 npm install
 ```
 
+## 需要的工具
+
+必需：
+
+- `Node.js 18+`
+- `npm`
+- `Microsoft PowerPoint`
+- `Git`
+
+建议：
+
+- `GitHub CLI (gh)`：方便创建仓库、登录、推送
+- 支持 skills 的 Trae / Codex / Agent 环境
+- `PowerShell 5.1+`：便于跑本地脚本和 PowerPoint 流程
+
 生成脚本默认输出到本地目录：
 
 ```bash
