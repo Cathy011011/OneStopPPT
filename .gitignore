@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+
+.trae/cache/
+.cache/
+.dbg/
+
+build-interview-report/node_modules/
+build-interview-report/benchmark-five-refs-preview/
+
+*.inspect.ndjson
+*.tmp
+*.log

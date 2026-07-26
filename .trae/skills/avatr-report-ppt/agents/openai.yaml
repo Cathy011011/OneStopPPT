@@ -1,0 +1,4 @@
+interface:
+  display_name: "访谈分析报告 PPT 智能体"
+  short_description: "基于访谈材料与 canonical 参考规则生成或修订最新 PPT"
+  default_prompt: "Use $avatr-report-ppt to update the latest interview-analysis PPT from the approved source material and the canonical project-report style references."
