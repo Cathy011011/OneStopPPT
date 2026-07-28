@@ -31,6 +31,8 @@ npm install
 
 - `Node.js 18+`
 - `npm`
+- `Python 3.11+`
+- `python-pptx`
 - `Microsoft PowerPoint`
 - `Git`
 
@@ -52,6 +54,8 @@ node build_benchmark_five_refs_safe.mjs
 $env:PPT_OUT="D:\temp\report.pptx"
 node build_benchmark_five_refs_safe.mjs
 ```
+
+如果是从原始访谈 `docx` 做“脱敏整理 -> 研究报告版 PPT”，建议在本地按现有生成器模式新建私有脚本，不把业务文案和客户材料相关脚本提交到 git。
 
 ## 目录
 
@@ -106,6 +110,20 @@ OneStopPPT/
 - 要“先学参考稿风格” -> 用 `project-report-ppt-style`
 - 要“打开当前 PPT 做 live 检查/修页” -> 用 `scientific-illustrator`
 
+## 最新验证流程
+
+适用场景：
+
+- 本地只有访谈 `docx`
+- 先要脱敏，再要汇总，再要生成研究报告型 PPT
+
+推荐顺序：
+
+1. 用 `avatr-report-ppt` + `project-report-ppt-style` 明确结构和风格约束
+2. 先把原始纪要整理成 `_脱敏汇总材料.md`
+3. 用本地私有生成脚本或现有生成器模式生成本地 PPT
+4. 用 PowerPoint 导出预览图，复查标题、摘要块、卡片说明、结尾页是否溢出
+
 ## 直接可用的提示词
 
 ### 1. 根据访谈材料生成初版 PPT
@@ -148,6 +166,26 @@ OneStopPPT/
 
 - 已经有一版 PPT
 - 现在主要是修标题、修文案、修结构
+
+### 2.1 先脱敏，再生成研究报告版 PPT
+
+```text
+把下面这段贴到 Agent 对话框里使用。
+
+同时使用 avatr-report-ppt 和 project-report-ppt-style。
+我会提供本地访谈 docx，请先删除客户敏感信息，再整理成研究报告型 PPT 的内容基础。
+要求：
+1. 先输出一份脱敏汇总材料，再开始生成 PPT
+2. 删除或泛化姓名、具体职业、可识别经历、精确时间
+3. 标题直接写结论，不补造用户原话
+4. 优先使用 PowerPoint 原生可编辑对象
+5. 生成后导出预览，并检查是否有文字溢出或遮挡
+```
+
+推荐场景：
+
+- 只有原始纪要，还没有整理好的汇报底稿
+- 需要把“脱敏”和“PPT 生成”连成一次完整流程
 
 ### 3. 用 scientific-illustrator 做 live 审查
 
@@ -228,6 +266,7 @@ git status
 - 本地业务 PPT
 - 本地 docx
 - 本地参考图片
+- 本地 course 截图和临时屏幕文件
 
 ## 一句话提醒
 

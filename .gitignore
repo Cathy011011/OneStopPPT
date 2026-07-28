@@ -7,8 +7,13 @@ Thumbs.db
 
 build-interview-report/node_modules/
 build-interview-report/benchmark-five-refs-preview/
+build-interview-report/build_0713_sanitized_report.mjs
+build-interview-report/build_0713_sanitized_report.py
 访谈/
 scientific-illustrator/PPTDEMO/
+course-assets/
+scripts/
+_tmp_screen_capture.png
 
 *.inspect.ndjson
 *.tmp

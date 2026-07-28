@@ -1,4 +1,4 @@
 interface:
   display_name: "访谈分析报告 PPT 智能体"
-  short_description: "基于访谈材料与 canonical 参考规则生成或修订最新 PPT"
-  default_prompt: "Use $avatr-report-ppt to update the latest interview-analysis PPT from the approved source material and the canonical project-report style references."
+  short_description: "基于访谈材料做脱敏、汇总、生成与精修研究报告型 PPT"
+  default_prompt: "Use $avatr-report-ppt to sanitize local interview materials when needed, build or refine the latest interview-analysis PPT from approved source material, and run rendered overflow QA against the canonical project-report style references."

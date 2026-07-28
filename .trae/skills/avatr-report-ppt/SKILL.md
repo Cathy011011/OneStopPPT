@@ -40,6 +40,21 @@ description: Create or review the current interview-analysis PPT using the canon
 - 继续优先使用 PowerPoint 原生可编辑对象
 - 当本 skill 与 `.trae/skills/project-report-ppt-style` 的规则冲突时，以后者为准
 
+## Working flow
+
+当输入是原始访谈纪要而不是现成 PPT 时，优先按下面顺序工作：
+
+1. 先在本地提取正文，不直接把原始 `docx` 当成汇报稿使用
+2. 先做脱敏，把姓名、具体职业、可识别经历、精确时间等改成研究口径
+3. 先沉淀一份 `_脱敏汇总材料.md`，再开始写 PPT
+4. 生成完成后，必须导出预览或做 PowerPoint 渲染检查，确认没有文字溢出和遮挡
+
+## QA additions
+
+- 长标题、摘要页大结论块、指标卡说明、收尾页主结论，都是最容易溢出的区域，必须单独复核
+- 如果脚本生成版出现字号压住其他文字，优先按“压缩文案 -> 缩小字号 -> 增加文本框高度”顺序修正
+- PowerPoint 实际渲染结果优先于脚本里的静态坐标判断
+
 ## Kept files
 
 本目录只保留：
