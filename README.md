@@ -1,273 +1,221 @@
 # OneStopPPT
 
-一个面向中文研究型汇报的 PPT 自动化仓库。  
-仓库只保留脚本、skills 和 `scientific-illustrator` 能力；业务材料请只放本地，不要上传 git。
+一个用于“参考模板学习 + 访谈归纳 + 可编辑 PPT 生成”的本地项目。
 
-## 你能拿它做什么
+仓库只保留能力、skill、脚本和说明文档；访谈纪要、客户材料、参考 PPT、缩略图和交付文件只放本地，不上传 git。
 
-- 根据本地访谈/研究材料生成 PPT
-- 套用研究报告型风格继续改稿
-- 用 `scientific-illustrator` 做 live 检查、导出预览、局部修页
+## 这个项目现在固定做什么
 
-## 先看哪里
+围绕一条可复刻流程工作：
 
+1. 准备参考 PPT
+2. 抽取参考 PPT 缩略图
+3. 整理访谈资料
+4. 用固定提示词方法归纳访谈
+5. 按参考模板配色和页型生成**可编辑 PPT**
+6. 导出 PowerPoint 预览，检查字号、遮挡和版面
+
+## 本地标准目录
+
+`访谈/` 目录现在统一按下面方式组织：
+
+```text
+访谈/
+├─ 01_参考模板/
+│  ├─ 租车战略项目调研报告20190531(2).pptx
+│  └─ 20190531-template-thumbnails/
+├─ 02_访谈资料/
+│  ├─ 归纳总结的提示词(1).docx
+│  ├─ 归纳总结的提示词(1).extracted.txt
+│  ├─ 座谈会笔录2-7月13日.docx
+│  ├─ 座谈会笔录2-7月13日.extracted.txt
+│  └─ 座谈会笔录2-7月13日_按提示词归纳总结.md
+├─ 03_交付成品/
+│  ├─ 座谈会笔录2-7月13日_参考模板可编辑版.pptx
+│  └─ 0713-reference-editable-preview/
+└─ 归档/
+```
+
+说明：
+
+- `01_参考模板`：只放参考 PPT 和参考缩略图
+- `02_访谈资料`：只放原始访谈、正文提取稿、提示词文档和归纳稿
+- `03_交付成品`：只放当前要交付的最终可编辑版 PPT 和预览图
+- `归档`：旧版本 PPT、旧预览、旧 HTML 产物和中间试验稿
+
+## 当前项目保留的关键文件
+
+Skills：
+
+- `/.trae/skills/interview-summary-workflow`
 - `/.trae/skills/avatr-report-ppt`
 - `/.trae/skills/project-report-ppt-style`
+- `/.trae/skills/powerpoint-automation`
+
+脚本：
+
+- `/build-interview-report/build_0713_reference_editable_report.py`
 - `/build-interview-report/build_benchmark_five_refs_safe.mjs`
-- `/scientific-illustrator/README.md`
 
-## 快速开始
+## 每个 skill 什么时候用
 
-```bash
-git clone https://github.com/Cathy011011/OneStopPPT.git
-cd OneStopPPT
-cd build-interview-report
-npm install
-```
+### 1. `interview-summary-workflow`
 
-## 需要的工具
+用途：
 
-必需：
+- 把原始访谈纪要整理成结构化总结
 
-- `Node.js 18+`
-- `npm`
-- `Python 3.11+`
-- `python-pptx`
-- `Microsoft PowerPoint`
-- `Git`
+什么时候用：
 
-建议：
+- 用户给的是 `docx` / 笔录 / 逐字稿
+- 还没有成型的 PPT 底稿
+- 需要先做“拆段 -> 证据 -> 归纳 -> 成稿”
 
-- `GitHub CLI (gh)`：方便创建仓库、登录、推送
-- 支持 skills 的 Trae / Codex / Agent 环境
-- `PowerShell 5.1+`：便于跑本地脚本和 PowerPoint 流程
+### 2. `avatr-report-ppt`
 
-生成脚本默认输出到本地目录：
+用途：
 
-```bash
-node build_benchmark_five_refs_safe.mjs
-```
+- 把访谈归纳稿映射到本地参考模板，生成或精修可编辑 PPT
 
-指定输出路径：
+什么时候用：
 
-```bash
-$env:PPT_OUT="D:\temp\report.pptx"
-node build_benchmark_five_refs_safe.mjs
-```
+- 已经有 `*_按提示词归纳总结.md`
+- 用户明确给了参考 PPT
+- 需要继续改 PPT 或出新版本
 
-如果是从原始访谈 `docx` 做“脱敏整理 -> 研究报告版 PPT”，建议在本地按现有生成器模式新建私有脚本，不把业务文案和客户材料相关脚本提交到 git。
+### 3. `project-report-ppt-style`
 
-## 目录
+用途：
 
-```text
-OneStopPPT/
-├─ .trae/skills/
-│  ├─ avatr-report-ppt/
-│  ├─ project-report-ppt-style/
-│  └─ powerpoint-automation/
-├─ build-interview-report/
-└─ scientific-illustrator/
-```
+- 学习和整理研究报告型 PPT 的写法、页型和图表规则
 
-## 使用原则
+什么时候用：
 
-- 业务 PPT、docx、图片只保存在本地
-- 不补造数字、结论、用户原话
-- 优先 PowerPoint 原生可编辑对象
-- 风格冲突时，以 `project-report-ppt-style` 为准
+- 先学风格，不急着出稿
+- 想做章节页、摘要页、矩阵页、建议页的页型复用
 
-## 提示词放在哪用
+### 4. `powerpoint-automation`
 
-### 1. 放在 Agent 对话框里
+用途：
 
-适用：
+- 打开现有 PPT 做 COM 自动化、导出预览、检查溢出和版面
 
-- `avatr-report-ppt`
-- `project-report-ppt-style`
-- `scientific-illustrator`
+什么时候用：
 
-使用位置：
+- 已有 PPT 文件
+- 需要真实 PowerPoint 渲染结果
+- 需要检查字体、遮挡、留白、可编辑性
 
-- Trae / Codex / 支持 skills 的 Agent 聊天窗口
+## 复刻整套流程怎么做
 
-不要放这里：
+### 第一步：放好参考模板
 
-- PowerPoint 里
-- `node` 命令行里
-- 普通 shell 终端里
+把参考 PPT 放到：
 
-### 2. 放在终端里
+- `访谈/01_参考模板/`
 
-适用：
+把它导出的缩略图也放到：
 
-- `node build_benchmark_five_refs_safe.mjs`
-- PowerShell 脚本
-- git 命令
+- `访谈/01_参考模板/20190531-template-thumbnails/`
 
-### 3. 怎么选
+### 第二步：放好访谈资料
 
-- 要“生成初稿 / 改稿” -> 用 `avatr-report-ppt`
-- 要“先学参考稿风格” -> 用 `project-report-ppt-style`
-- 要“打开当前 PPT 做 live 检查/修页” -> 用 `scientific-illustrator`
+把原始纪要和提示词文档放到：
 
-## 最新验证流程
+- `访谈/02_访谈资料/`
 
-适用场景：
+至少准备：
 
-- 本地只有访谈 `docx`
-- 先要脱敏，再要汇总，再要生成研究报告型 PPT
+- 一份原始访谈纪要
+- 一份访谈归纳提示词
 
-推荐顺序：
+### 第三步：先归纳，不急着做 PPT
 
-1. 用 `avatr-report-ppt` + `project-report-ppt-style` 明确结构和风格约束
-2. 先把原始纪要整理成 `_脱敏汇总材料.md`
-3. 用本地私有生成脚本或现有生成器模式生成本地 PPT
-4. 用 PowerPoint 导出预览图，复查标题、摘要块、卡片说明、结尾页是否溢出
-
-## 直接可用的提示词
-
-### 1. 根据访谈材料生成初版 PPT
+把下面这段放到 Agent 对话框里，使用 `interview-summary-workflow`：
 
 ```text
-把下面这段贴到 Agent 对话框里使用。
-
-使用 avatr-report-ppt，并参考 project-report-ppt-style。
-我会在本地提供访谈纪要和参考 PPT，请基于本地材料生成一版研究报告型 PPT。
+使用 interview-summary-workflow。
+我会提供本地访谈纪要和访谈归纳提示词，请先按固定步骤整理成结构化研究总结。
 要求：
-1. 只使用本地私有材料，不要引用仓库里不存在的文件
-2. 标题直接写结论
-3. 不补造数据和用户原话
-4. 优先使用 PowerPoint 原生可编辑对象
-5. 生成后给出逐页结构摘要
+1. 不按发言顺序做流水账
+2. 先拆段，再抽证据，再归纳观点，最后成稿
+3. 保留用户真实观点，区分主持人、品牌方和用户反馈
+4. 对证据不足的地方明确写“需问卷进一步验证”
+5. 输出一份可直接给 PPT 使用的归纳总结 markdown
 ```
 
-推荐场景：
+预期输出：
 
-- 从 0 到 1 出第一版
-- 已有访谈纪要和参考 PPT
-- 需要“内容生成 + 风格约束”一起生效
+- `*_按提示词归纳总结.md`
 
-### 2. 在现有 PPT 上继续精修
+### 第四步：再按参考模板生成可编辑 PPT
+
+把下面这段放到 Agent 对话框里，使用 `avatr-report-ppt`：
 
 ```text
-把下面这段贴到 Agent 对话框里使用。
+使用 avatr-report-ppt，并先读取 interview-summary-workflow 的归纳结果。
+请基于本地参考 PPT 和访谈归纳稿，生成一版可编辑 PPT。
+要求：
+1. 最终 PPT 必须贴近参考 PPT 的配色框架、章节节奏和页型骨架
+2. 不补造用户原话、数据和竞品结论
+3. 文本框、表格、流程、矩阵尽量保持 PowerPoint 原生可编辑对象
+4. 生成后导出预览图，检查字号、遮挡和留白
+```
 
-使用 avatr-report-ppt。
-基于我本地现有 PPT 继续精修，不要推翻重做。
+预期输出：
+
+- `访谈/03_交付成品/*.pptx`
+- `访谈/03_交付成品/*preview/`
+
+### 第五步：最后做真实渲染检查
+
+把下面这段放到 Agent 对话框里，使用 `powerpoint-automation`：
+
+```text
+使用 powerpoint-automation。
+请对当前生成的 PPT 做真实渲染检查。
 重点检查：
-1. 标题是否直接表达结论
-2. 一页是否只服务一个重点
-3. 图表和表格是否比大段文字更承担信息主体
-4. 文案是否忠于原始材料
-5. 所有修改保持可编辑
+1. 字体大小是否失衡
+2. 是否有文字遮挡
+3. 表格和矩阵是否过密
+4. 标题是否过长
+5. 当前版本是否仍是可编辑对象，而不是整页图片
 ```
 
-推荐场景：
+## 当前默认输出
 
-- 已经有一版 PPT
-- 现在主要是修标题、修文案、修结构
+当前主交付文件：
 
-### 2.1 先脱敏，再生成研究报告版 PPT
+- `访谈/03_交付成品/座谈会笔录2-7月13日_参考模板可编辑版.pptx`
 
-```text
-把下面这段贴到 Agent 对话框里使用。
+当前预览目录：
 
-同时使用 avatr-report-ppt 和 project-report-ppt-style。
-我会提供本地访谈 docx，请先删除客户敏感信息，再整理成研究报告型 PPT 的内容基础。
-要求：
-1. 先输出一份脱敏汇总材料，再开始生成 PPT
-2. 删除或泛化姓名、具体职业、可识别经历、精确时间
-3. 标题直接写结论，不补造用户原话
-4. 优先使用 PowerPoint 原生可编辑对象
-5. 生成后导出预览，并检查是否有文字溢出或遮挡
-```
+- `访谈/03_交付成品/0713-reference-editable-preview/`
 
-推荐场景：
+当前可编辑生成脚本：
 
-- 只有原始纪要，还没有整理好的汇报底稿
-- 需要把“脱敏”和“PPT 生成”连成一次完整流程
+- `build-interview-report/build_0713_reference_editable_report.py`
 
-### 3. 用 scientific-illustrator 做 live 审查
+## 写 PPT 时必须守住的规则
 
-```text
-把下面这段贴到 Agent 对话框里使用。
+- 只用本地私有材料，不引用仓库里不存在的业务文件
+- 先做访谈归纳，再做 PPT
+- 标题优先直接写结论
+- 不补造数据、用户原话和竞品判断
+- 参考模板明确时，优先贴近该模板的配色和页型
+- 最终交付优先保持 PowerPoint 原生可编辑对象
 
-使用 scientific-illustrator 的 live PowerPoint 流程检查当前打开的 PPT。
-按下面顺序执行：
-1. status
-2. capabilities
-3. inspect
-4. 对关键页做 audit
-5. 导出预览图
+## Git 约束
 
-重点看：
-- 对齐
-- 留白
-- 文字溢出
-- 箭头和边框净空
-- 是否仍是原生可编辑对象
-```
+仓库中默认忽略：
 
-推荐场景：
+- `访谈/`
+- `course-assets/`
+- `scripts/`
+- 本地截图、临时日志和中间文件
 
-- PPT 已经打开
-- 需要检查溢出、对齐、可编辑性
-- 需要导出预览图
+提交前只检查能力和文档，不提交客户材料。
 
-### 4. 让它只改文案，不动版式骨架
+## 一句话说明
 
-```text
-把下面这段贴到 Agent 对话框里使用。
-
-使用 avatr-report-ppt。
-只改文案，不大改版式结构。
-保留当前页面骨架、图表位置、信息层级和主视觉节奏。
-只做：
-1. 标题改成结论式
-2. 正文压缩
-3. 重复表达去重
-4. 语气统一
-```
-
-推荐场景：
-
-- 页面结构已经定了
-- 只想收文案，不想重排版
-
-### 5. 让它只做风格学习，不直接出 PPT
-
-```text
-把下面这段贴到 Agent 对话框里使用。
-
-使用 project-report-ppt-style。
-先不要生成 PPT，先把参考稿的风格规则整理出来。
-输出内容只要：
-1. 字体和字号层级
-2. 常见页型
-3. 图表/表格表达规则
-4. 标题写法
-5. 后续复用时必须遵守的约束
-```
-
-推荐场景：
-
-- 还没开始做 PPT
-- 先想把参考风格吃透
-- 后续准备多人复用同一套风格规则
-
-## 提交前
-
-```bash
-git status
-```
-
-确认这些材料没有被跟踪：
-
-- 本地业务 PPT
-- 本地 docx
-- 本地参考图片
-- 本地 course 截图和临时屏幕文件
-
-## 一句话提醒
-
-这个仓库传的是能力，不是材料。
+这个项目现在的目标很明确：**把“参考模板 -> 访谈归纳 -> 可编辑 PPT”这条链路固定下来，并且以后可以照着重复做。**

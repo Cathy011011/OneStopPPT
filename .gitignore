@@ -6,6 +6,7 @@ Thumbs.db
 .dbg/
 
 build-interview-report/node_modules/
+build-interview-report/__pycache__/
 build-interview-report/benchmark-five-refs-preview/
 build-interview-report/build_0713_sanitized_report.mjs
 build-interview-report/build_0713_sanitized_report.py
